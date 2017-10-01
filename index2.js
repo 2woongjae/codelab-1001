@@ -12,13 +12,26 @@ app.on('ready', () => {
 
     const second = new BrowserWindow({
         show: false,
-        frame: false
+        frame: false,
     });
     second.once('ready-to-show', () => {
         second.show();
     });
     second.loadURL(HTML);
+    second.on('focus', () => {
+        console.log('focus');
+    });
+    second.on('blur', () => {
+        console.log('blur');
+    });
+    second.on('move', () => {
+        console.log('move');
+    });
+
+    console.log(BrowserWindow.getAllWindows());
+    console.log(BrowserWindow.getFocusedWindow());
     
+    /*
     const win = new BrowserWindow({
         x: 0,
         y: 0,
@@ -31,11 +44,14 @@ app.on('ready', () => {
         movable: true,
         show: false,
         maximizable: false,
-        minimizable: false
+        minimizable: false,
+        parent: second,
+        modal: true
     });
     win.loadURL('https://github.com');
     win.webContents.openDevTools();
     win.once('ready-to-show', () => {
         win.show();
     });
+    */
 });
