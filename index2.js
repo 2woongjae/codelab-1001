@@ -11,7 +11,8 @@ app.on('ready', () => {
     console.log('ready');
 
     const second = new BrowserWindow({
-        show: false
+        show: false,
+        frame: false
     });
     second.once('ready-to-show', () => {
         second.show();
