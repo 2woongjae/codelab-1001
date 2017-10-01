@@ -7,9 +7,30 @@ const HTML = url.format({
     pathname: path.join(__dirname, 'index.html')
 });
 
+let win = null;
+
 app.on('ready', () => {
     console.log('ready');
 
-    new Tray(path.join(__dirname, 'icon.png'));
-
+    const tray = new Tray(path.join(__dirname, 'icon.png'));
+    tray.on('click', () => {
+        createWindow();
+    });
+    tray.on('right-click', () => {
+        win.hide();
+    });
 });
+
+app.on('window-all-closed', () => {});
+
+function createWindow() {
+    if (win === null) {
+        win = new BrowserWindow({
+            show: false
+        });
+        win.on('closed', () => {
+            win = null;
+        });
+    }
+    win.show();
+}
