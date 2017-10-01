@@ -14,6 +14,8 @@ app.on('ready', () => {
 
     const tray = new Tray(path.join(__dirname, 'icon.png'));
     tray.setContextMenu(getTrayMenu());
+
+    Menu.setApplicationMenu(getApplicationMenu());
     /*
     tray.on('click', () => {
         createWindow();
@@ -31,6 +33,7 @@ function createWindow() {
         win = new BrowserWindow({
             show: false
         });
+        win.loadURL(HTML);
         win.on('closed', () => {
             win = null;
         });
@@ -56,6 +59,58 @@ function getTrayMenu() {
             click: () => {
                 app.quit();
             }
+        },
+        {
+            label: '수업이니깐',
+            submenu: [
+                {
+                    label: '추석'
+                },
+                {
+                    type: 'checkbox',
+                    label: '체크박스',
+                    checked: true,
+                    click: (event) => {
+                        console.log(event.checked);
+                    }
+                }
+            ]
+        }
+    ]);
+}
+
+function getApplicationMenu() {
+    return Menu.buildFromTemplate([
+        {
+            label: 'First',
+            submenu: [
+                {
+                    label: 'First1'
+                },
+                {
+                    label: 'First2'
+                }
+            ]
+        },
+        {
+            label: 'Second',
+            submenu: [
+                {
+                    label: 'Second1'
+                },
+                {
+                    label: 'Second2'
+                }
+            ]
+        },
+        {
+            label: 'Roles',
+            submenu: [
+                {role: 'paste'},
+                {role: 'reload'},
+                {role: 'about'},
+                {role: 'toggledevtools'}
+            ]
         }
     ]);
 }
