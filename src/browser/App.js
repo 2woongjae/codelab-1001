@@ -16,6 +16,10 @@ class App {
     _ready() {
         console.log('ready');
 
+        console.log(process.versions);
+        console.log(process.platform);
+        console.log(process.type);  
+
         this._win = new BrowserWindow({
             show: false
         });
@@ -28,6 +32,11 @@ class App {
             console.log(arg.name);
             //
             event.sender.send('b', arg.name);
+        });
+
+        ipcMain.on('c', (event, arg) => {
+            console.log(arg);
+            event.returnValue = '옛다 여깄다.';
         });
     }
 }
