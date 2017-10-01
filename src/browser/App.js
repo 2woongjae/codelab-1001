@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 const url = require('url');
 const path = require('path');
 
@@ -23,6 +23,12 @@ class App {
             this._win.show();
         });
         this._win.loadURL(HTML);
+
+        ipcMain.on('a', (event, arg) => {
+            console.log(arg.name);
+            //
+            event.sender.send('b', arg.name);
+        });
     }
 }
 
