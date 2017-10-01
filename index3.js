@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Tray} = require('electron');
+const {app, BrowserWindow, Tray, Menu} = require('electron');
 const url = require('url');
 const path = require('path');
 
@@ -13,12 +13,15 @@ app.on('ready', () => {
     console.log('ready');
 
     const tray = new Tray(path.join(__dirname, 'icon.png'));
+    tray.setContextMenu(getTrayMenu());
+    /*
     tray.on('click', () => {
         createWindow();
     });
     tray.on('right-click', () => {
         win.hide();
     });
+    */
 });
 
 app.on('window-all-closed', () => {});
@@ -33,4 +36,26 @@ function createWindow() {
         });
     }
     win.show();
+}
+
+function getTrayMenu() {
+    const menu = new Menu();
+    return Menu.buildFromTemplate([
+        {
+            type: 'normal',
+            label: 'Open',
+            click: () => {
+                createWindow();
+            }
+        },
+        {
+            type: 'separator'
+        },
+        {
+            label: 'Quit',
+            click: () => {
+                app.quit();
+            }
+        }
+    ]);
 }
