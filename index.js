@@ -35,3 +35,5 @@ app.on('quit', () => {
 app.on('activate', (event, hasVisibleWindows) => {
     console.log('activate', hasVisibleWindows);
 });
+
+// 'https://github.com/2woongjae/codelab-1001'
